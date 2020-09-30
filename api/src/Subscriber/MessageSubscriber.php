@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class MessageSubscriber implements EventSubscriberInterface
 {
     private $params;
-   // private $requestTypeService;
+    private $messageService;
     private $serializer;
 
     public function __construct(ParameterBagInterface $params, MessageService $messageService, SerializerInterface $serializer)
@@ -34,23 +34,62 @@ class MessageSubscriber implements EventSubscriberInterface
 
     public function getResponce(GetResponseForControllerResultEvent $event)
     {
+
         $message = $event->getControllerResult();
         $route = $event->getRequest()->get('_route');
         $method = $event->getRequest()->getMethod();
 
-        // Alleen triggeren op het jusite moment
-        if (!$message instanceof Message  || $route != 'post_message_to_proccess' || Request::METHOD_POST !== $method) {
+        if ($route != 'api_messages_post_message_to_proccess_collection') {
             return $message;
         }
 
+
+        $contentType = $event->getRequest()->headers->get('accept');
+        if (!$contentType) {
+            $contentType = $event->getRequest()->headers->get('Accept');
+        }
+
+        // Lets set a return content type
+        switch ($contentType) {
+            case 'application/json':
+                $renderType = 'json';
+                break;
+            case 'application/ld+json':
+                $renderType = 'jsonld';
+                break;
+            case 'application/hal+json':
+                $renderType = 'jsonhal';
+                break;
+            default:
+                $contentType = 'application/json';
+                $renderType = 'json';
+        }
         // controlleren of we triggeren
         var_dump('trigger');
 
-        // test setup
-        $message->setResponce('message recieved');
+
+        // now we need to overide the normal subscriber
+        $json = $this->serializer->serialize(
+            $message,
+            $renderType,
+            ['enable_max_depth' => true]
+        );
+        $response = new Response(
+            $json,
+            Response::HTTP_OK,
+            ['content-type' => $contentType]
+        );
+
+        // controlleren of we triggeren hier komt hij niet
+        //var_dump('trigger');
+
+        $event->setResponse($response);
+
 
         // wat er eigenlijk moet gebeuren is een responce genereren
         //$proccesId -. get id form request
+        // controlleren of we triggeren
+        //var_dump($proccesId);
         //$message->setResponce($this->messageService->getResponce($message, $proccesId));
 
         return $message;
