@@ -13,7 +13,7 @@ settings:
   description: 'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'
   type: component
   repro: https://github.com/ConductionNL/very-small-chatbot-component
-  demo: pc.zaakonline.nl
+  demo: vsc.zuid-drecht.nl
   container: https://hub.docker.com/repository/docker/conduction/vsc-php
   domain: conduction.nl
   subdomain: vsc

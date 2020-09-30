@@ -4,6 +4,7 @@ namespace App\Subscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Service\MessageService;
+use App\Entity\Message;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,25 +28,30 @@ class MessageSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::VIEW => ['getMessage', EventPriorities::PRE_VALIDATE],
+            KernelEvents::VIEW => ['getResponce', EventPriorities::PRE_VALIDATE],
         ];
     }
 
-    public function getRequestType(GetResponseForControllerResultEvent $event)
+    public function getResponce(GetResponseForControllerResultEvent $event)
     {
         $message = $event->getControllerResult();
         $route = $event->getRequest()->get('_route');
         $method = $event->getRequest()->getMethod();
-        $extend = $event->getRequest()->query->get('extend');
 
-        //!$requestType instanceof RequestType || Request::METHOD_GET !== $method ||
-        if ($extend != 'true' || $route != 'api_messages_get_item') {
+        // Alleen triggeren op het jusite moment
+        if (!$message instanceof Message  || $route != 'post_message_to_proccess' || Request::METHOD_POST !== $method) {
             return $message;
         }
 
-        //var_dump($method);
+        // controlleren of we triggeren
+        var_dump('trigger');
 
-        //$message = $this->messageService->extendMessage($message);
+        // test setup
+        $message->setResponce('message recieved');
+
+        // wat er eigenlijk moet gebeuren is een responce genereren
+        //$proccesId -. get id form request
+        //$message->setResponce($this->messageService->getResponce($message, $proccesId));
 
         return $message;
     }
