@@ -3,14 +3,27 @@ entries:
   pc:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2020-09-15T08:32:05.8459574Z"
+    created: "2020-09-30T08:40:29.4253545Z"
     description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql)
       interface beschikbaar.&#039;'
-    digest: 2ccb90fd33c2a73b4448265ccae5bc3dc0c8daa5993ccaa4e8f2101d20963603
+    digest: ba5ebcfd86f13150e7855ee6f7628535f7d073a5a000a49d25ae555e44b4949e
     home: pc.zaakonline.nl
     icon: pc.zaakonline.nl
     name: pc
     urls:
     - pc-0.1.0.tgz
     version: 0.1.0
-generated: "2020-09-15T08:32:05.8336209Z"
+  vsc:
+  - apiVersion: v1
+    appVersion: V1.0
+    created: "2020-09-30T08:40:29.4312338Z"
+    description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
+      beschikbaar.
+    digest: 537059e63ddd98d12af4820d60f43e0a078edade9a7bad114671350d53291e38
+    home: vsc.zuid-drecht.nl
+    icon: vsc.zuid-drecht.nl
+    name: vsc
+    urls:
+    - vsc-0.1.0.tgz
+    version: 0.1.0
+generated: "2020-09-30T08:40:29.4201238Z"

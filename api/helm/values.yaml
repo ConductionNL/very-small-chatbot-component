@@ -4,20 +4,20 @@
 
 settings:
   registryBase: docker.io/conduction
-  projectName: pc
-  name: pc
-  title: Proto component commonground
+  projectName: vsc
+  name: vsc
+  title: Very Small Chatbot
   version: V1.0
   majorVersion: v1
   id: 
-  description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.&#039;'
+  description: 'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'
   type: component
-  repro: https://github.com/ConductionNL/proto-component
-  demo: pc.zaakonline.nl
-  container: https://hub.docker.com/repository/docker/conduction/pc-php
+  repro: https://github.com/ConductionNL/very-small-chatbot-component
+  demo: vsc.zuid-drecht.nl
+  container: https://hub.docker.com/repository/docker/conduction/vsc-php
   domain: conduction.nl
-  subdomain: pc
-  subpath: pc
+  subdomain: vsc
+  subpath: vsc
   subpathRouting: true
   organisationName: Conduction
   email: info@conduction.nl

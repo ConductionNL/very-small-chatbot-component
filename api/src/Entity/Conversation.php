@@ -4,85 +4,41 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ConversationRepository;
-use App\Repository\MessageRepository;
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
-use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
  * A conversation in where the questions are stored that have been asked to the receiver
  *
- * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\ConversationRepository")
  * @Gedmo\Loggable(logEntryClass="Conduction\CommonGroundBundle\Entity\ChangeLog")
  *
- * @ApiFilter(BooleanFilter::class)
- * @ApiFilter(OrderFilter::class)
- * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
- * @ApiFilter(SearchFilter::class)
- *
- * })
  */
 class Conversation
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @var UuidInterface The UUID identifier of this resource
+     *
+     * @example e2984465-190a-4562-829e-a8cca81aa35d
+     *
+     * @ORM\Id
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
     private $id;
 
     /**
-     * @var string The name of this conversation
+     * dat uri zijn naar poroperty
      *
-     * @example My conversation
-     *
-     * @Gedmo\Versioned
-     * @Assert\NotNull
-     * @Assert\Length(
-     *      max = 255
-     * )
-     * @Groups({"read", "write"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
-
-    /**
-     * @var string An short description of this conversation
-     *
-     * @example This is the best process ever
-     *
-     * @Gedmo\Versioned
-     * @Assert\Length(
-     *      max = 255
-     * )
-     * @Groups({"read", "write"})
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $description;
-
-    /**
      * @var string The last question asked to the sender
      *
      * @example waar wil je naartoe verhuizen?
      *
-     * @Gedmo\Versioned
-     * @Assert\NotNull
-     * @Assert\Length(
-     *      max = 255
-     * )
-     * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $lastquestion;
@@ -92,20 +48,22 @@ class Conversation
      *
      * @example http://rtc.zaakonline.nl/9bd169ef-bc8c-4422-86ce-a0e7679ab67a
      *
-     * @Gedmo\Versioned
-     * @Assert\Url
-     * @Assert\Length(
-     *      max = 255
-     * )
-     * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255)
      */
-    private $requestType;
+    private $request;
+
+    /**
+     * @var string The request that is used for this conversation
+     *
+     * @example http://rtc.zaakonline.nl/9bd169ef-bc8c-4422-86ce-a0e7679ab67a
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $sender;
 
     /**
      * @var DateTime The moment this request was created
-     *
-     * @Groups({"read"})
+     *)
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -114,7 +72,6 @@ class Conversation
     /**
      * @var DateTime The moment this request last Modified
      *
-     * @Groups({"read"})
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
