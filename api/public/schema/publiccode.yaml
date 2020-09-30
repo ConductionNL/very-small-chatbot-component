@@ -1,13 +1,13 @@
 publiccodeYmlVersion: "0.2"
 
-name: pc
+name: vsc
 applicationSuite: commonground
-url: "https://github.com/ConductionNL/proto-component"
+url: "https://github.com/ConductionNL/very-small-chatbot-component"
 landingURL: "pc.zaakonline.nl" 
 isBasedOn: "https://github.com/ConductionNL/Proto-component-commonground.git" 
 softwareVersion: "V1.0"
-releaseDate: "2020-15-09"
-logo: pc.zaakonline.nl 
+releaseDate: "2020-30-09"
+logo: vsc.zuid-drecht.nl 
 monochromeLogo: img/logo-mono.svg
 
 inputTypes:
@@ -37,7 +37,7 @@ usedBy:
   - Gemeente Hoorn
   
 
-roadmap: "https://github.com/ConductionNL/proto-component/blob/master/ROADMAP.md"
+roadmap: "https://github.com/ConductionNL/very-small-chatbot-component/blob/master/ROADMAP.md"
 
 developmentStatus: development
 
@@ -66,7 +66,7 @@ description:
 #          on multiple rows. You should note what the software
 #          is and why one should need it.
 
-    documentation: "https://github.com/ConductionNL/proto-component/blob/master/README.md"
+    documentation: "https://github.com/ConductionNL/very-small-chatbot-component/blob/master/README.md"
     apiDocumentation: "pc.zaakonline.nl"
 #
 #    features:

@@ -1,18 +1,18 @@
 openapi: 3.0.2
 info:
-  title: 'Proto component commonground'
+  title: 'Very Small Chatbot'
   version: V1.0
   description: |
     API Details
-    - Component: Proto component commonground
-    - Reference: pc
+    - Component: Very Small Chatbot
+    - Reference: vsc
     - Enviroment: dev
     - Version: V1.0
-    - Repository: [online](https://github.com/ConductionNL/proto-component) / [zip](https://github.com/ConductionNL/proto-component/archive/master.zip)
-    - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/pc-php) 
-    - Datamodel: [postman](/schema/pc.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
+    - Repository: [online](https://github.com/ConductionNL/very-small-chatbot-component) / [zip](https://github.com/ConductionNL/very-small-chatbot-component/archive/master.zip)
+    - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/vsc-php) 
+    - Datamodel: [postman](/schema/vsc.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
     
-    'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
+    Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
     
 paths:
   /audit_trails:
@@ -2427,12 +2427,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-09-15 08:34:10'
+        example: '2020-09-30 08:09:53'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-09-15 08:34:10'
+        example: '2020-09-30 08:09:53'
     required: []
   AuditTrail-write:
     properties:
@@ -2480,12 +2480,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-09-15 08:34:10'
+        example: '2020-09-30 08:09:53'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-09-15 08:34:10'
+        example: '2020-09-30 08:09:53'
     required: []
   ChangeLog-write:
     properties:
@@ -2527,7 +2527,7 @@ host: irc.zaakonline.nl
 servers:
   -
     name: conduction.nl
-    url: pc.dev.conduction.nl
+    url: vsc.dev.conduction.nl
 externalDocs:
   -
     description: 'OAS Documentatie'
