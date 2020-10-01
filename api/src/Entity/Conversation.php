@@ -97,7 +97,7 @@ class Conversation
         return $this->lastquestion;
     }
 
-    public function setLastQuestion(string $lastquestion): self
+    public function setLastQuestion( $lastquestion): self
     {
         $this->lastquestion = $lastquestion;
 

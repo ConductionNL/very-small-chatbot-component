@@ -23,6 +23,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class MessageService
 {
+    private $finishedRequest;
     private $newrequest;
     private $em;
     private $commongroundService;
@@ -30,6 +31,7 @@ class MessageService
 
     public function __construct(EntityManagerInterface $em, CommonGroundService $commongroundService, PtcService $ptcService)
     {
+        $this->finishedRequest = false;
         $this->newrequest = false;
         $this->em = $em;
         $this->commongroundService = $commongroundService;
@@ -79,14 +81,48 @@ class MessageService
         $this->em->persist($conversation);
         $this->em->flush();
 
-        $property =$this->commongroundService->getResource($conversation->getLastQuestion());
+        // If we have a current question we want to utter it
+        if($conversation->getLastQuestion()){
+            $property =$this->commongroundService->getResource($conversation->getLastQuestion());
 
-        // responce genereren
-        if(array_key_exists('utter', $property)){
-            $response[] = ['text'=> $property['utter']];
+            // responce genereren
+            if(array_key_exists('utter', $property) && $property['utter']){
+                $response[] = ['text'=> $property['utter']];
+            }
+            else{
+                $response[] = ['text'=> $property['title']];
+            }
         }
-        else{
-            $response[] = ['text'=> $property['title']];
+
+        // If the request is finished we want to inform the user
+        if($this->finishedRequest){
+
+            $proccess = $this->commongroundService->getResource(['component'=>'ptc','type'=>'process_types','id'=> $conversation->getProccess() ]);
+
+            // If a login is requered we want to offer the user that option
+            if(in_array($proccess['login'],['always','onSubmit'])){
+
+                // Add a login option to the responce stack
+                $response[] = [
+                    'text'=> 'Dank u, voor dit verzoek is het noodzaakenlijk dat u deze bevestigd door middel van een inlog',
+                    'buttons'=> [
+                        ["title"=>"Verzoek bevestigen","payload"=>"https://zuid-drecht.nl/"]
+                    ]
+                ];
+            }
+
+            // If no login is required we just confirm the recieving og the request
+            else{
+
+                // Add a text to the responce stack
+                $response[] = ['text'=> 'Dank u, we hebben uw verzoek in goede ontvangen en zullen dat zo spoedig mogenlijk verwerken'];
+
+                // Get the request
+                $request = $conversation->getRequest();
+                $request = $this->commongroundService->getResource($request);
+                $request['status'] = 'submitted';
+                $request = $this->commongroundService->saveResource($request);
+            }
         }
 
         return $response;
@@ -135,6 +171,7 @@ class MessageService
 
     public function getNextQuestion(Conversation $conversation)
     {
+
         $request = $conversation->getRequest();
         $request = $this->commongroundService->getResource($request);
 
@@ -154,6 +191,9 @@ class MessageService
                 }
             }
         }
+
+        // If the procces is finished we want to inform the user
+        $this->finishedRequest = true;
 
         // wel of geen vragen
 
