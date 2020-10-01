@@ -55,7 +55,7 @@ class MessageService
             $this->commongroundService->save($request);
         }
 
-        $conversation->setLastQuestion($this->getNextQuestion());
+        $conversation->setLastQuestion($this->getNextQuestion($conversation));
 
         $property =$this->commongroundService->getResource($conversation->getLastQuestion());
 
@@ -85,14 +85,14 @@ class MessageService
         $request = [];
         $request['processType'] = $procces['@id'];
         $request['requestType'] = $procces['requestType'];
-        $request['organization'] = $procces['sourceOrganization'];
+        $request['organization'] = $this->commongroundService->cleanUrl(['component'=>'wrc','type'=>'organizations','id'=> '4d1eded3-fbdf-438f-9536-8747dd8ab591' ]);
         $request['properties'] = [];
 
         // Verzoek opslaan
         $request = $this->commongroundService->saveResource($request,['component'=>'vrc','type'=>'requests']);
 
         $conversation = New Conversation();
-        $conversation->setProcces($procces['id']);
+        $conversation->setProccess($procces['id']);
         $conversation->setRequest($request['@id']);
         $conversation->setSender($message->getSender());
         $conversation->getLastQuestion(null);
@@ -106,18 +106,20 @@ class MessageService
         $request = $conversation->getRequest();
         $request = $this->commongroundService->getResource($request);
 
-        $proccess = $request['$processType'];
+        $proccess = $request['processType'];
         $proccess = $this->commongroundService->getResource($proccess);
 
         // last question moet altijd een vtc property zijn
-        $procces = $this->ptcService->extendProcces($proccess, $request);
+        $procces = $this->ptcService->extendProcess($proccess, $request);
 
         foreach ($proccess['stages'] as $stage){
             foreach ($stage['sections'] as $section){
-                foreach ($section['propertyForm'] as $property){
+                var_dump($section);
+                die;
+                foreach ($section['propertiesForms'] as $property){
                     // Returnen op de éerste niet valid vraag
                     if(!$property['valid']){
-                        return $property['@id'];
+                        return $this->commongroundService->cleanUrl(['component'=>'vtc','type'=>'properties','id'=> $property['id'] ]); ;
                     }
                 }
             }
