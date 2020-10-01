@@ -40,6 +40,7 @@ class MessageSubscriber implements EventSubscriberInterface
         $route = $event->getRequest()->get('_route');
         $method = $event->getRequest()->getMethod();
         $contentType = $event->getRequest()->headers->get('accept');
+        $proccesId = $event->getRequest()->attributes->get('id');
 
 
         if (!$contentType) {
@@ -65,9 +66,6 @@ class MessageSubscriber implements EventSubscriberInterface
                 $contentType = 'application/json';
                 $renderType = 'json';
         }
-
-        // Hard procces id
-        $proccesId = 'c8de2851-332d-4284-b86e-ba0615694427';
 
         // now we need to overide the normal subscriber
         $json = $this->serializer->serialize(
