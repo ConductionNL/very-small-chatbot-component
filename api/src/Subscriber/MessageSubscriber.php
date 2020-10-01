@@ -66,10 +66,12 @@ class MessageSubscriber implements EventSubscriberInterface
                 $renderType = 'json';
         }
 
+        // Hard procces id
+        $proccesId = 'c8de2851-332d-4284-b86e-ba0615694427';
 
         // now we need to overide the normal subscriber
         $json = $this->serializer->serialize(
-            $this->messageService->getResponce($message),
+            $this->messageService->getResponce($message, $proccesId),
             $renderType,
             ['enable_max_depth' => true]
         );

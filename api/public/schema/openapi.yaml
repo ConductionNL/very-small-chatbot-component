@@ -2967,6 +2967,137 @@ paths:
           description: 'Resource not found'
       produces:
         - application/health+json
+  '/messages/{id}':
+    get:
+      tags:
+        - Message
+      operationId: getMessageItem
+      summary: 'Retrieves a Message resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Message resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Message:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Message:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
   '/procces/{id}/message':
     post:
       tags:
@@ -3769,12 +3900,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-10-01 04:28:13'
+        example: '2020-10-01 04:59:33'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-10-01 04:28:13'
+        example: '2020-10-01 04:59:33'
     required: []
   AuditTrail-write:
     properties:
@@ -3822,12 +3953,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-10-01 04:28:13'
+        example: '2020-10-01 04:59:33'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-10-01 04:28:13'
+        example: '2020-10-01 04:59:33'
     required: []
   ChangeLog-write:
     properties:
@@ -3929,8 +4060,8 @@ securityDefinitions:
 host: irc.zaakonline.nl
 servers:
   -
-    name: conduction.nl
-    url: vsc.dev.conduction.nl
+    name: zuid-drecht.nl
+    url: vsc.dev.zuid-drecht.nl
 externalDocs:
   -
     description: 'OAS Documentatie'

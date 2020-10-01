@@ -3,7 +3,7 @@ entries:
   pc:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2020-10-01T04:25:17.100665Z"
+    created: "2020-10-01T04:57:56.3741646Z"
     description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql)
       interface beschikbaar.&#039;'
     digest: ba5ebcfd86f13150e7855ee6f7628535f7d073a5a000a49d25ae555e44b4949e
@@ -16,14 +16,14 @@ entries:
   vsc:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2020-10-01T04:25:17.1078558Z"
+    created: "2020-10-01T04:57:56.3843945Z"
     description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
       beschikbaar.
-    digest: 44b9141b3262e93bdd6d60cc7d7dd9ddd3e7ac1345020fb534ed2611a1620da7
+    digest: e8fee18fd58ba96df8e313773dafeb75237f425479129e822d30d012ea513eb5
     home: vsc.zuid-drecht.nl
     icon: vsc.zuid-drecht.nl
     name: vsc
     urls:
     - vsc-0.1.0.tgz
     version: 0.1.0
-generated: "2020-10-01T04:25:17.0882141Z"
+generated: "2020-10-01T04:57:56.3610548Z"

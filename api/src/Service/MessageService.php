@@ -73,26 +73,26 @@ class MessageService
     {
         // 1. Haal uit DB converstation aan de hand van sender + $proccesId
         $conversation = $this->em->getRepository('App\Entity\Conversation')
-        ->find($message, $proccesId);
-
-        // 2.a als converstion bestaat return converstaion
+        ->findOneBy(['sender'=>$message->getSender(),'proccess'=>$proccesId]);
 
         if($conversation['']){
             return $conversation;
         }
         else{
         // 2.b las converstiaon niet bestaad, maar converstaion aan en return deze
-
-        $procces = $this->commongroundService->getResource(['component'=>'ptc','type'=>'proccesType','id'=> $proccesId ]);
+        $procces = $this->commongroundService->getResource(['component'=>'ptc','type'=>'process_types','id'=> $proccesId ]);
 
         $request = [];
-        $request['$processType'] = $procces['@id'];
+        $request['processType'] = $procces['@id'];
         $request['requestType'] = $procces['requestType'];
+        $request['organization'] = $procces['sourceOrganization'];
+        $request['properties'] = [];
 
         // Verzoek opslaan
-        $request = $this->commongroundService->save($request);
+        $request = $this->commongroundService->saveResource($request,['component'=>'vrc','type'=>'requests']);
 
         $conversation = New Conversation();
+        $conversation->setProcces($procces['id']);
         $conversation->setRequest($request['@id']);
         $conversation->setSender($message->getSender());
         $conversation->getLastQuestion(null);

@@ -44,6 +44,15 @@ class Conversation
     private $lastquestion;
 
     /**
+     * @var string The procces that is used for this conversation
+     *
+     * @example http://rtc.zaakonline.nl/9bd169ef-bc8c-4422-86ce-a0e7679ab67a
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $proccess;
+
+    /**
      * @var string The request that is used for this conversation
      *
      * @example http://rtc.zaakonline.nl/9bd169ef-bc8c-4422-86ce-a0e7679ab67a
@@ -82,29 +91,6 @@ class Conversation
         return $this->id;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
 
     public function getLastQuestion(): ?string
     {
@@ -114,6 +100,18 @@ class Conversation
     public function setLastQuestion(string $lastquestion): self
     {
         $this->lastquestion = $lastquestion;
+
+        return $this;
+    }
+
+    public function getProccess(): ?string
+    {
+        return $this->proccess;
+    }
+
+    public function setProccess(string $proccess): self
+    {
+        $this->proccess = $proccess;
 
         return $this;
     }
@@ -129,6 +127,7 @@ class Conversation
 
         return $this;
     }
+
     public function getSender(): ?string
     {
         return $this->sender;
