@@ -15,6 +15,8 @@ namespace App\Service;
 
 use App\Entity\Conversation;
 use App\Entity\Message;
+use Conduction\CommonGroundBundle\Service\CommonGroundService;
+use Conduction\CommonGroundBundle\Service\PtcService;
 use Doctrine\ORM\EntityManagerInterface;
 // je hebt hier zowieoz nofig de ommon ground service
 // je hebt hier zowieoz nodig de ptc service
@@ -25,10 +27,10 @@ class MessageService
     private $commongroundService;
     private $ptcService;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, CommonGroundService $commongroundService, PtcService $ptcService)
     {
         $this->em = $em;
-        $this->$commongroundService = $$commongroundService;
+        $this->commongroundService = $commongroundService;
         $this->ptcService = $ptcService;
     }
 
@@ -38,7 +40,7 @@ class MessageService
         $conversation = $this->getConversation($message, $proccesId);
 
         // Kijken of er een vraag wordt benatwoord
-        if($property = $conversation->getLastquistion()){
+        if($property = $conversation->getLastQuestion()){
 
             //Turn the resource into an array
             $property = $this->commongroundService->getResource($property);
@@ -55,7 +57,7 @@ class MessageService
 
         $conversation->setLastQuestion($this->getNextQuestion());
 
-        $property =$this->commongroundService->getResource($conversation->getLastQuistion());
+        $property =$this->commongroundService->getResource($conversation->getLastQuestion());
 
         // responce genereren
         if(array_key_exists('utter', $property)){
@@ -70,19 +72,21 @@ class MessageService
     public function getConversation(Message $message, string $proccesId)
     {
         // 1. Haal uit DB converstation aan de hand van sender + $proccesId
-        $conversation = $this->em->get();
+        $conversation = $this->em->getRepository('App\Entity\Conversation')
+        ->find($message, $proccesId);
 
-        // 2.a als converstion bestaad retun converstaion
+        // 2.a als converstion bestaat return converstaion
 
-        if($conversation){
+        if($conversation['']){
             return $conversation;
         }
+        else{
         // 2.b las converstiaon niet bestaad, maar converstaion aan en return deze
 
         $procces = $this->commongroundService->getResource(['component'=>'ptc','type'=>'proccesType','id'=> $proccesId ]);
 
         $request = [];
-        $request['proccessType'] = $procces['@id'];
+        $request['$processType'] = $procces['@id'];
         $request['requestType'] = $procces['requestType'];
 
         // Verzoek opslaan
@@ -91,10 +95,10 @@ class MessageService
         $conversation = New Conversation();
         $conversation->setRequest($request['@id']);
         $conversation->setSender($message->getSender());
-        $conversation->getLastquestion(null);
+        $conversation->getLastQuestion(null);
 
         return $conversation;
-
+        }
     }
 
     public function getNextQuestion(Conversation $conversation)
@@ -102,7 +106,7 @@ class MessageService
         $request = $conversation->getRequest();
         $request = $this->commongroundService->getResource($request);
 
-        $proccess = $request['proccessType'];
+        $proccess = $request['$processType'];
         $proccess = $this->commongroundService->getResource($proccess);
 
         // last question moet altijd een vtc property zijn
@@ -110,7 +114,7 @@ class MessageService
 
         foreach ($proccess['stages'] as $stage){
             foreach ($stage['sections'] as $section){
-                foreach ($section['propertForm'] as $property){
+                foreach ($section['propertyForm'] as $property){
                     // Returnen op de éerste niet valid vraag
                     if(!$property['valid']){
                         return $property['@id'];

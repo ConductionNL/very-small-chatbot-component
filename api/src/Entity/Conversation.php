@@ -106,30 +106,40 @@ class Conversation
         return $this;
     }
 
-    public function getLastquestion(): ?string
+    public function getLastQuestion(): ?string
     {
         return $this->lastquestion;
     }
 
-    public function setLastquestion(string $lastquestion): self
+    public function setLastQuestion(string $lastquestion): self
     {
         $this->lastquestion = $lastquestion;
 
         return $this;
     }
 
-    public function getRequestType(): ?string
+    public function getRequest(): ?string
     {
-        return $this->requestType;
+        return $this->request;
     }
 
-    public function setRequestType(string $requestType): self
+    public function setRequest(string $request): self
     {
-        $this->requestType = $requestType;
+        $this->request = $request;
 
         return $this;
     }
+    public function getSender(): ?string
+    {
+        return $this->sender;
+    }
 
+    public function setSender(string $sender): self
+    {
+        $this->sender = $sender;
+
+        return $this;
+    }
      public function getDateCreated(): ?\DateTimeInterface
     {
         return $this->dateModified;

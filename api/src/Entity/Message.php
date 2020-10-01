@@ -70,9 +70,6 @@ class Message
      */
     private $responce;
 
-    // getters and setters ook aanpassen
-
-
     public function getId(): ?string
     {
         return '1234';
