@@ -7,6 +7,7 @@ use App\Repository\ConversationRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use PhpParser\Node\Expr\Array_;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -42,6 +43,18 @@ class Conversation
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $lastquestion;
+
+    /**
+     * All partial question that where asked
+     *
+     * @var Array The question parts
+     *
+     * @example waar wil je naartoe verhuizen?
+     *
+     * @ORM\Column(type="array", length=255, nullable=true)
+     */
+    private $questionParts = [];
+
 
     /**
      * @var string The procces that is used for this conversation
@@ -91,7 +104,6 @@ class Conversation
         return $this->id;
     }
 
-
     public function getLastQuestion(): ?string
     {
         return $this->lastquestion;
@@ -100,6 +112,18 @@ class Conversation
     public function setLastQuestion( $lastquestion): self
     {
         $this->lastquestion = $lastquestion;
+
+        return $this;
+    }
+
+    public function getQuestionParts(): ?array
+    {
+        return $this->questionParts;
+    }
+
+    public function setQuestionParts( $questionParts): self
+    {
+        $this->questionParts = $questionParts;
 
         return $this;
     }
