@@ -108,17 +108,39 @@ class QuestionService
             // We need to get the first empty question part
 
             foreach($conversation->getQuestionParts()[$property['id']] as $key => $value) {
-                if($value == null)  return [['text'=> $this->questionPartsService->getPart($key)['utter']]];
+                if($value == null){
+
+                    $value = $this->questionPartsService->getPart($key);
+                    $responce = [
+                        ['text'=> 'Ik heb een vraag over '.$property['title']],
+                        ['text'=> $value['utter']]
+                    ];
+
+                    return $responce;
+                }
             }
 
             // Everyting looks valid so lets  turn it into a real value and save it
             $value = $this->questionPartsService->getValue($property['iri'], $conversation->getQuestionParts()[$property['id']]);
+
             if($value != null){
                 $request = $conversation->getRequest();
                 $request = $this->commongroundService->getResource($request);
                 $request['properties'][$property['name']] = $value;
                 $this->commongroundService->saveResource($request);
-                return [['text'=> 'Uw gekozen '.$property['title'].' is '. $value['utter']]];
+
+
+                $responce = [
+                    ['text'=> 'Uw gekozen '.$property['title'].' is '. $value['utter']]
+                ];
+
+                // Lets get the next property
+                $property = $this->commongroundService->getResource($this->getNextQuestion($conversation));
+
+                // And add its utter to the reponce
+                $responce = array_merge($responce, $this->getUtter($conversation, $property));
+
+                return $responce;
             }
             else{
                 $questionParts = $conversation->getQuestionParts();

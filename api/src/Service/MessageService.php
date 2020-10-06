@@ -76,7 +76,7 @@ class MessageService
             $response[] = [
                 'text'=>'Ik ga de '.$proccess['name'].' doorgeven. Jouw aanvraag heeft nummer '.$this->newrequest.' Je kunt je aanvraag altijd bekijken of bewerken op onze website.',
                 'buttons'=> [
-                    ["title"=>"Aanvraag bekijken","payload"=>"https://ds.zuid-drecht.nl/?responceUrl=http://dev.zuid-drecht.nl/digispoof&backUrl=https://dev.zuid-drecht.nl/ptc/process/".$conversation->getProccess()."","type"=>"web_url"]
+                    ["title"=>"Aanvraag bekijken","payload"=>"https://ds.zuid-drecht.nl/?responceUrl=http://dev.zuid-drecht.nl/digispoof&backUrl=https://dev.zuid-drecht.nl/ptc/process/".$conversation->getProccess()."?request=".urlencode($conversation->getRequest()),"type"=>"web_url"]
                 ]
             ];
         }
@@ -155,12 +155,12 @@ class MessageService
 
             $property = $this->commongroundService->getResource($conversation->getLastQuestion());
 
-            $response[] = array_merge($this->questionService->getUtter($conversation, $property), $response);
+            $response= array_merge($response,$this->questionService->getUtter($conversation, $property));
         }
         else{
 
             // If a login is requered we want to offer the user that option
-            if(in_array($proccess['login'],['always','onSubmit'])){
+            //if(in_array($proccess['login'],['always','onSubmit'])){
 
                 // Add a login option to the responce stack
                 $response[] = [
@@ -175,7 +175,7 @@ class MessageService
                                 'buttons ' => [
                                     [
                                     "title"=> "Verzoek bevestigen",
-                                    "url"=>"https://ds.zuid-drecht.nl/?responceUrl=http://dev.zuid-drecht.nl/digispoof&backUrl=https://dev.zuid-drecht.nl/ptc/process/".$conversation->getProccess()."",
+                                    "url"=>"https://ds.zuid-drecht.nl/?responceUrl=http://dev.zuid-drecht.nl/digispoof&backUrl=https://dev.zuid-drecht.nl/ptc/process/".$conversation->getProccess()."/submit?request=".urlencode($conversation->getRequest()),
                                     "type"=> "web_url"
                                     ],
                                     "title"=>"Annuleren",
@@ -186,7 +186,7 @@ class MessageService
                             ]
                         ]
                 ];
-            }
+            /*}
 
             // If no login is required we just confirm the recieving og the request
             else{
@@ -198,7 +198,7 @@ class MessageService
                 $request = $this->commongroundService->getResource($request);
                 $request['status'] = 'submitted';
                 $request = $this->commongroundService->saveResource($request);
-            }
+            } */
         }
 
         return $response;
