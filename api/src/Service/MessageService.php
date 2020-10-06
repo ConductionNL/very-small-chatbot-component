@@ -143,7 +143,7 @@ class MessageService
                     // Save our data
                     $request['properties'][$property['name']] = $value;
                     $this->commongroundService->saveResource($request);
-                    
+
                     if(is_bool($value)){
                         if($value){
                             $value = 'ja';

@@ -149,10 +149,18 @@ class QuestionService
                 $this->em->persist($conversation);
                 $this->em->flush();
 
-                $responce = [
-                    ['text'=> 'Ik heb een vraag over '.$property['title']],
-                    ['text'=> $value['utter']]
-                ];
+                if(array_key_exists('utter',$property)){
+                    $responce = [
+                        ['text'=> $property['utter']],
+                        ['text'=> $value['utter']]
+                    ];
+                }
+                else{
+                    $responce = [
+                        ['text'=> 'Ik heb een vraag over '.$property['title']],
+                        ['text'=> $value['utter']]
+                    ];
+                }
 
                 return $responce;
             }
