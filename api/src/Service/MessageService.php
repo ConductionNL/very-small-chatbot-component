@@ -128,12 +128,30 @@ class MessageService
                     $conversation->setQuestionParts($questionParts);
                     $this->em->persist($conversation);
                     $this->em->flush();
+
+                    if(is_bool($value)){
+                        if($value){
+                            $value = 'ja';
+                        }
+                        else{
+                            $value = 'nee';
+                        }
+                    }
                     $response[] = ['text'=> 'Uw gekozen '.$questionPart['title'].' is '. $value];
                 }
                 else{
                     // Save our data
                     $request['properties'][$property['name']] = $value;
                     $this->commongroundService->saveResource($request);
+                    
+                    if(is_bool($value)){
+                        if($value){
+                            $value = 'ja';
+                        }
+                        else{
+                            $value = 'nee';
+                        }
+                    }
                     $response[] = ['text'=> 'Uw gekozen '.$property['title'].' is '. $value];
                 }
             }
