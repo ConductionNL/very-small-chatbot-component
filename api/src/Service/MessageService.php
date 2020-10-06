@@ -115,7 +115,7 @@ class MessageService
 
             $value = $this->questionService->getNluValue($message->getMessage(), $type);
 
-            if($value != null){
+            if($value || (is_bool($value))){
                 // Get the request
                 $request = $conversation->getRequest();
                 $request = $this->commongroundService->getResource($request);
