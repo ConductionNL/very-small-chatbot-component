@@ -106,8 +106,9 @@ class QuestionService
         // Lets see if the current property is in the question parts
         if(array_key_exists($property['id'], $conversation->getQuestionParts())){
             // We need to get the first empty question part
+
             foreach($conversation->getQuestionParts()[$property['id']] as $key => $value) {
-                if($value == null)  return ['text'=> $this->questionPartsService->getPart($key)['utter']];
+                if($value == null)  return [['text'=> $this->questionPartsService->getPart($key)['utter']]];
             }
 
             // Everyting looks valid so lets  turn it into a real value and save it
@@ -117,7 +118,7 @@ class QuestionService
                 $request = $this->commongroundService->getResource($request);
                 $request['properties'][$property['name']] = $value;
                 $this->commongroundService->saveResource($request);
-                return ['text'=> 'Uw gekozen '.$property['title'].' is '. $value['utter']];
+                return [['text'=> 'Uw gekozen '.$property['title'].' is '. $value['utter']]];
             }
             else{
                 $questionParts = $conversation->getQuestionParts();
@@ -125,17 +126,23 @@ class QuestionService
                 $conversation->setQuestionParts($questionParts);
                 $this->em->persist($conversation);
                 $this->em->flush();
-                return ['text'=> $value['utter']];
+
+                $responce = [
+                    ['text'=> 'Ik heb een vraag over '.$property['title']],
+                    ['text'=> $value['utter']]
+                ];
+
+                return $responce;
             }
         }
 
 
         // Generate a generic responce
         if(array_key_exists('utter', $property) && $property['utter']){
-            return ['text'=> $property['utter']];
+            return [['text'=> $property['utter']]];
         }
         else{
-            return ['text'=> $property['title']];
+            return [['text'=> $property['title']]];
         }
     }
 

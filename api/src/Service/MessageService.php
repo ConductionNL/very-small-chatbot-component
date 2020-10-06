@@ -76,7 +76,7 @@ class MessageService
             $response[] = [
                 'text'=>'Ik ga de '.$proccess['name'].' doorgeven. Jouw aanvraag heeft nummer '.$this->newrequest.' Je kunt je aanvraag altijd bekijken of bewerken op onze website.',
                 'buttons'=> [
-                    ["title"=>"Aanvraag bekijken","payload"=>"https://zuid-drecht.nl/","type"=>"web_url"]
+                    ["title"=>"Aanvraag bekijken","payload"=>"https://ds.zuid-drecht.nl/?responceUrl=http://dev.zuid-drecht.nl/digispoof&backUrl=https://dev.zuid-drecht.nl/ptc/process/".$conversation->getProccess()."","type"=>"web_url"]
                 ]
             ];
         }
@@ -155,7 +155,7 @@ class MessageService
 
             $property = $this->commongroundService->getResource($conversation->getLastQuestion());
 
-            $response[] = $this->questionService->getUtter($conversation, $property);
+            $response[] = array_merge($this->questionService->getUtter($conversation, $property), $response);
         }
         else{
 
@@ -164,10 +164,27 @@ class MessageService
 
                 // Add a login option to the responce stack
                 $response[] = [
-                    'text'=> 'Bedankt. Om de '.$proccess['name'].' definitief door te geven, moet je inloggen. Dan weten we zeker dat jij het bent.',
-                    'buttons'=> [
-                        ["title"=>"Verzoek bevestigen","payload"=>"https://zuid-drecht.nl/","type"=>"web_url"]
-                    ]
+                    'attachment' =>
+                        [
+                        'type'=> 'template',
+                        'payload'=> [
+                            'template_type'=> 'generic',
+                            'elements'=> [
+                                "subtitle" => 'Bedankt. Om de '.$proccess['name'].' definitief door te geven, moet je inloggen. Dan weten we zeker dat jij het bent.',
+                                "image_url" => "https://www.develop.virtuele-gemeente-assistent.nl/static/img/digid_eo_rgb_150px.png",
+                                'buttons ' => [
+                                    [
+                                    "title"=> "Verzoek bevestigen",
+                                    "url"=>"https://ds.zuid-drecht.nl/?responceUrl=http://dev.zuid-drecht.nl/digispoof&backUrl=https://dev.zuid-drecht.nl/ptc/process/".$conversation->getProccess()."",
+                                    "type"=> "web_url"
+                                    ],
+                                    "title"=>"Annuleren",
+                                    "type"=> "postback",
+                                    "payload"=> "/greet"
+                                    ]
+                                ]
+                            ]
+                        ]
                 ];
             }
 
