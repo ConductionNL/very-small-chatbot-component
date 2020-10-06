@@ -175,7 +175,7 @@ class MessageService
                                 'buttons ' => [
                                     [
                                     "title"=> "Verzoek bevestigen",
-                                    "url"=>"https://ds.zuid-drecht.nl/?responceUrl=http://dev.zuid-drecht.nl/digispoof&backUrl=https://dev.zuid-drecht.nl/ptc/process/".$conversation->getProccess()."/submit?request=".urlencode($conversation->getRequest()),
+                                    "url"=>"https://ds.zuid-drecht.nl/?responceUrl=http://dev.zuid-drecht.nl/digispoof&backUrl=https://dev.zuid-drecht.nl/ptc/process/".$conversation->getProccess()."?submit=true&request=".urlencode($conversation->getRequest()),
                                     "type"=> "web_url"
                                     ],
                                     "title"=>"Annuleren",
