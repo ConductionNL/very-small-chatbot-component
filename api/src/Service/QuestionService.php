@@ -126,7 +126,7 @@ class QuestionService
             if($value != null){
                 $request = $conversation->getRequest();
                 $request = $this->commongroundService->getResource($request);
-                $request['properties'][$property['name']] = $value;
+                $request['properties'][$property['name']] = $value['value'];
                 $this->commongroundService->saveResource($request);
 
 
