@@ -192,7 +192,7 @@ class MessageService
                                 [
                                     "subtitle" => 'Bedankt. Om de '.$proccess['name'].' definitief door te geven, moet je inloggen. Dan weten we zeker dat jij het bent.',
                                     "image_url" => "https://www.develop.virtuele-gemeente-assistent.nl/static/img/digid_eo_rgb_150px.png",
-                                    'buttons ' => [
+                                    'buttons' => [
                                         [
                                             "title"=> "Verzoek bevestigen",
                                             "url"=>"https://ds.zuid-drecht.nl/?responceUrl=http://dev.zuid-drecht.nl/digispoof&backUrl=https://dev.zuid-drecht.nl/ptc/process/".$conversation->getProccess()."?request=".urlencode($conversation->getRequest()),
