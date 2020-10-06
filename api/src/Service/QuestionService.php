@@ -111,7 +111,7 @@ class QuestionService
                 if($value == null){
 
                     $value = $this->questionPartsService->getPart($key);
-                    
+
                     if(array_key_exists('utter',$property)){
                         $responce = [
                             ['text'=> $property['utter']],

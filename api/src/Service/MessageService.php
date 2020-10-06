@@ -69,6 +69,7 @@ class MessageService
 
                 $request = $conversation->getRequest();
                 $request['properties'] = $properties;
+                $this->commongroundService->saveResource($request);
                 $conversation->setRequest($request);
             }
 
