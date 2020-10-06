@@ -180,6 +180,7 @@ class MessageService
             // If a login is requered we want to offer the user that option
             //if(in_array($proccess['login'],['always','onSubmit'])){
 
+                $backUrl = "";
                 // Add a login option to the responce stack
                 $response[] = [
                     'attachment' =>
@@ -194,17 +195,16 @@ class MessageService
                                     'buttons ' => [
                                         [
                                             "title"=> "Verzoek bevestigen",
-                                            "url"=>"https://ds.zuid-drecht.nl/?responceUrl=http://dev.zuid-drecht.nl/digispoof&backUrl=https://dev.zuid-drecht.nl/ptc/process/".$conversation->getProccess()."?submit=true&request=".urlencode($conversation->getRequest()),
+                                            "url"=>"https://ds.zuid-drecht.nl/?responceUrl=http://dev.zuid-drecht.nl/digispoof&backUrl=https://dev.zuid-drecht.nl/ptc/process/".$conversation->getProccess()."?request=".urlencode($conversation->getRequest()),
                                             "type"=> "web_url"
+                                        ],
+                                        [
+                                            "title"=>"Annuleren",
+                                            "type"=> "postback",
+                                            "payload"=> "/greet"
                                         ]
                                     ]
                                 ],
-                                [
-                                    "title"=>"Annuleren",
-                                    "type"=> "postback",
-                                    "payload"=> "/greet"
-                                ]
-
                             ]
                         ]
                     ]
