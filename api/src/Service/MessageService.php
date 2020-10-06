@@ -60,17 +60,19 @@ class MessageService
         // Lets esteblish if there is a new request
         if($this->newrequest){
 
+
             // Let transfer any start data
-            if(strpos('/init', $message->getMessage())){
+            if(strpos($message->getMessage(), 'init{')){
 
-                $message = str_replace("/init","", $message->getMessage());
+                $messageProperties = str_replace("/init","", $message->getMessage());
 
-                $properties = json_decode($message);
+                $properties = json_decode($messageProperties, true);
 
                 $request = $conversation->getRequest();
+                $request = $this->commongroundService->getResource($request);
+                //if(!array_key_exists('properties', $request)) $request['properties'] =[];
                 $request['properties'] = $properties;
                 $this->commongroundService->saveResource($request);
-                $conversation->setRequest($request);
             }
 
             // Lets give a startup message
