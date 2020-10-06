@@ -170,21 +170,26 @@ class MessageService
                         'payload'=> [
                             'template_type'=> 'generic',
                             'elements'=> [
-                                "subtitle" => 'Bedankt. Om de '.$proccess['name'].' definitief door te geven, moet je inloggen. Dan weten we zeker dat jij het bent.',
-                                "image_url" => "https://www.develop.virtuele-gemeente-assistent.nl/static/img/digid_eo_rgb_150px.png",
-                                'buttons ' => [
-                                    [
-                                    "title"=> "Verzoek bevestigen",
-                                    "url"=>"https://ds.zuid-drecht.nl/?responceUrl=http://dev.zuid-drecht.nl/digispoof&backUrl=https://dev.zuid-drecht.nl/ptc/process/".$conversation->getProccess()."?submit=true&request=".urlencode($conversation->getRequest()),
-                                    "type"=> "web_url"
-                                    ],
+                                [
+                                    "subtitle" => 'Bedankt. Om de '.$proccess['name'].' definitief door te geven, moet je inloggen. Dan weten we zeker dat jij het bent.',
+                                    "image_url" => "https://www.develop.virtuele-gemeente-assistent.nl/static/img/digid_eo_rgb_150px.png",
+                                    'buttons ' => [
+                                        [
+                                            "title"=> "Verzoek bevestigen",
+                                            "url"=>"https://ds.zuid-drecht.nl/?responceUrl=http://dev.zuid-drecht.nl/digispoof&backUrl=https://dev.zuid-drecht.nl/ptc/process/".$conversation->getProccess()."?submit=true&request=".urlencode($conversation->getRequest()),
+                                            "type"=> "web_url"
+                                        ]
+                                    ]
+                                ],
+                                [
                                     "title"=>"Annuleren",
                                     "type"=> "postback",
                                     "payload"=> "/greet"
-                                    ]
                                 ]
+
                             ]
                         ]
+                    ]
                 ];
             /*}
 
