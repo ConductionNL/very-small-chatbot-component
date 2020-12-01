@@ -2,22 +2,17 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\ConversationRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use PhpParser\Node\Expr\Array_;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-
 /**
- * A conversation in where the questions are stored that have been asked to the receiver
+ * A conversation in where the questions are stored that have been asked to the receiver.
  *
  * @ORM\Entity(repositoryClass="App\Repository\ConversationRepository")
  * @Gedmo\Loggable(logEntryClass="Conduction\CommonGroundBundle\Entity\ChangeLog")
- *
  */
 class Conversation
 {
@@ -34,7 +29,7 @@ class Conversation
     private $id;
 
     /**
-     * dat uri zijn naar poroperty
+     * dat uri zijn naar poroperty.
      *
      * @var string The last question asked to the sender
      *
@@ -45,16 +40,15 @@ class Conversation
     private $lastquestion;
 
     /**
-     * All partial question that where asked
+     * All partial question that where asked.
      *
-     * @var Array The question parts
+     * @var array The question parts
      *
      * @example waar wil je naartoe verhuizen?
      *
      * @ORM\Column(type="array", length=255, nullable=true)
      */
     private $questionParts = [];
-
 
     /**
      * @var string The procces that is used for this conversation
@@ -109,7 +103,7 @@ class Conversation
         return $this->lastquestion;
     }
 
-    public function setLastQuestion( $lastquestion): self
+    public function setLastQuestion($lastquestion): self
     {
         $this->lastquestion = $lastquestion;
 
@@ -121,7 +115,7 @@ class Conversation
         return $this->questionParts;
     }
 
-    public function setQuestionParts( $questionParts): self
+    public function setQuestionParts($questionParts): self
     {
         $this->questionParts = $questionParts;
 
@@ -163,28 +157,28 @@ class Conversation
 
         return $this;
     }
-     public function getDateCreated(): ?\DateTimeInterface
+
+    public function getDateCreated(): ?\DateTimeInterface
     {
         return $this->dateModified;
     }
 
-        public function setDateCreated(\DateTimeInterface $dateCreated): self
+    public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
         $this->dateCreated = $dateCreated;
 
         return $this;
     }
 
-        public function getDateModified(): ?\DateTimeInterface
+    public function getDateModified(): ?\DateTimeInterface
     {
         return $this->dateModified;
     }
 
-        public function setDateModified(\DateTimeInterface $dateModified): self
+    public function setDateModified(\DateTimeInterface $dateModified): self
     {
         $this->dateModified = $dateModified;
 
         return $this;
     }
-
 }
