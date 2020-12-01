@@ -13,14 +13,7 @@
 
 namespace App\Service;
 
-use App\Entity\Conversation;
-use App\Entity\Message;
 use Conduction\CommonGroundBundle\Service\CommonGroundService;
-use Conduction\CommonGroundBundle\Service\PtcService;
-use Doctrine\ORM\EntityManagerInterface;
-use GuzzleHttp\Client;
-use PhpParser\Builder\Property;
-use PhpParser\Node\Expr\Array_;
 
 // je hebt hier zowieoz nofig de ommon ground service
 // je hebt hier zowieoz nodig de ptc service
@@ -31,22 +24,19 @@ class QuestionPartsService
 
     public function __construct(
         CommonGroundService $commongroundService
-    )
-    {
-
+    ) {
         $this->commongroundService = $commongroundService;
-
     }
 
     public function getPart($part)
     {
         $questionParts = [
-            'postalcode' => ['utter'=>'Wat is de postcode?','type'=>'postal-code','title'=>'postcode'],
-            'housenumber' => ['utter'=>'Wat is het huisnummer zonder toevoegingen?','type'=>'number','title'=>'huisnummer']
+            'postalcode'  => ['utter'=>'Wat is de postcode?', 'type'=>'postal-code', 'title'=>'postcode'],
+            'housenumber' => ['utter'=>'Wat is het huisnummer zonder toevoegingen?', 'type'=>'number', 'title'=>'huisnummer'],
             //'housenumberSufix' => ['utter'=>'Wat is het huisnummer zonder toevoegingen?','type'=>'number','title'=>'huisnummer']
         ];
 
-        if(array_key_exists($part, $questionParts)){
+        if (array_key_exists($part, $questionParts)) {
             return $questionParts[$part];
         }
 
@@ -56,18 +46,19 @@ class QuestionPartsService
     /*
      * This function gets a total value for parts array
      */
-    public function getValue(string $iri, array $parts){
+    public function getValue(string $iri, array $parts)
+    {
         switch ($iri) {
             // Proccesing bag addresses
             case 'bag/address':
-                $addresses = $this->commongroundService->getResourceList(['component'=>'as','type'=>'adressen'],['postcode'=>$parts['postalcode'],'huisnummer'=>$parts['housenumber']])['hydra:member'];
-                if(count($addresses) > 0){
+                $addresses = $this->commongroundService->getResourceList(['component'=>'as', 'type'=>'adressen'], ['postcode'=>$parts['postalcode'], 'huisnummer'=>$parts['housenumber']])['hydra:member'];
+                if (count($addresses) > 0) {
                     $address = $addresses[0];
                     $readableAddress = $address['huisnummer'].''.$address['huisnummertoevoeging'].' '.$address['straat'].', '.$address['postcode'].' '.$address['woonplaats'];
+
                     return ['utter'=> $readableAddress, 'value'=> $address['@id']];
-                }
-                else{
-                    return ['utter'=> 'er kon geen addres worden gevonden voor '.implode(',',$parts), 'value'=> null];
+                } else {
+                    return ['utter'=> 'er kon geen addres worden gevonden voor '.implode(',', $parts), 'value'=> null];
                 }
         }
     }
