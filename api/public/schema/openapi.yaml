@@ -10,9 +10,9 @@ info:
     - Version: V1.0
     - Repository: [online](https://github.com/ConductionNL/very-small-chatbot-component) / [zip](https://github.com/ConductionNL/very-small-chatbot-component/archive/master.zip)
     - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/vsc-php) 
-    - Datamodel: [postman](/schema/vsc.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
+    - Datamodel: [postman](schema/vsc.postman_collection.json) / [oas](schema/openapi.yaml) / [pdf](schema/datamodel.pdf) / [modelio (zip)](schema/Datamodel_Modelio.zip) 
     
-    Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
+    'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
     
 paths:
   /audit_trails:
@@ -1942,6 +1942,262 @@ paths:
             schema:
               $ref: '#/components/schemas/ChangeLog-write'
         description: 'The updated ChangeLog resource'
+  '/messages/{id}':
+    get:
+      tags:
+        - Message
+      operationId: getMessageItem
+      summary: 'Retrieves a Message resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Message resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Message:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Message:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+  '/procces/{id}/message':
+    post:
+      tags:
+        - Message
+      operationId: post_message_to_proccessMessageCollection
+      summary: 'Creates a Message resource.'
+      responses:
+        201:
+          description: 'Message resource created'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Message:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Message:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Message-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Message:jsonld-write'
+          application/json+ld:
+            schema:
+              $ref: '#/components/schemas/Message:jsonld-write'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Message-write'
+          application/json+hal:
+            schema:
+              $ref: '#/components/schemas/Message-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Message-write'
+          application/json+vnd.api:
+            schema:
+              $ref: '#/components/schemas/Message-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Message-write'
+          application/health+json:
+            schema:
+              $ref: '#/components/schemas/Message-write'
+          application/json+health:
+            schema:
+              $ref: '#/components/schemas/Message-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Message-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Message-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Message-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Message-write'
+        description: 'The new Message resource'
+      parameters:
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
 components:
   schemas:
     AuditTrail-read:
@@ -2005,18 +2261,23 @@ components:
         route:
           description: 'The moment this request was created'
           type: string
+          nullable: true
         endpoint:
           description: 'The endpoint that the request was made to'
           type: string
+          nullable: true
         method:
           description: 'The method that was used'
           type: string
+          nullable: true
         accept:
           description: 'The contentType that was reqousted'
           type: string
+          nullable: true
         contentType:
           description: 'The contentType that was suplieds'
           type: string
+          nullable: true
         content:
           description: 'The moment this request was created'
           type: string
@@ -2024,6 +2285,7 @@ components:
         ip:
           description: 'The moment this request was created'
           type: string
+          nullable: true
         session:
           description: 'The moment this request was created'
           type: string
@@ -2135,18 +2397,23 @@ components:
         route:
           description: 'The moment this request was created'
           type: string
+          nullable: true
         endpoint:
           description: 'The endpoint that the request was made to'
           type: string
+          nullable: true
         method:
           description: 'The method that was used'
           type: string
+          nullable: true
         accept:
           description: 'The contentType that was reqousted'
           type: string
+          nullable: true
         contentType:
           description: 'The contentType that was suplieds'
           type: string
+          nullable: true
         content:
           description: 'The moment this request was created'
           type: string
@@ -2154,6 +2421,7 @@ components:
         ip:
           description: 'The moment this request was created'
           type: string
+          nullable: true
         session:
           description: 'The moment this request was created'
           type: string
@@ -2322,6 +2590,64 @@ components:
         '@type':
           readOnly: true
           type: string
+    Message-read:
+      type: object
+      description: 'A message that as part of a converstation'
+      properties:
+        responce:
+          description: 'The to the sender'
+          type: string
+    Message-write:
+      type: object
+      description: 'A message that as part of a converstation'
+      required:
+        - sender
+        - message
+      properties:
+        sender:
+          description: 'The url of a person who is the sender(the requester)'
+          type: string
+        message:
+          description: 'The message of the sender'
+          type: string
+    'Message:jsonld-read':
+      type: object
+      description: 'A message that as part of a converstation'
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        responce:
+          description: 'The to the sender'
+          type: string
+    'Message:jsonld-write':
+      type: object
+      description: 'A message that as part of a converstation'
+      required:
+        - sender
+        - message
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        sender:
+          description: 'The url of a person who is the sender(the requester)'
+          type: string
+        message:
+          description: 'The message of the sender'
+          type: string
 definitions:
   AuditTrail-read:
     properties:
@@ -2427,12 +2753,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-09-30 08:09:53'
+        example: '2020-12-01 14:34:07'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-09-30 08:09:53'
+        example: '2020-12-01 14:34:07'
     required: []
   AuditTrail-write:
     properties:
@@ -2480,12 +2806,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-09-30 08:09:53'
+        example: '2020-12-01 14:34:07'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-09-30 08:09:53'
+        example: '2020-12-01 14:34:07'
     required: []
   ChangeLog-write:
     properties:
@@ -2526,8 +2852,8 @@ securityDefinitions:
 host: irc.zaakonline.nl
 servers:
   -
-    name: conduction.nl
-    url: vsc.dev.conduction.nl
+    name: zuid-drecht.nl
+    url: vsc.dev.zuid-drecht.nl
 externalDocs:
   -
     description: 'OAS Documentatie'

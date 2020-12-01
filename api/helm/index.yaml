@@ -1,16 +1,50 @@
 apiVersion: v1
 entries:
-  pc:
+  postgresql:
+  - annotations:
+      category: Database
+    apiVersion: v2
+    appVersion: 11.10.0
+    created: "2020-12-01T14:32:58.0967349Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      version: 1.x.x
+    description: Chart for PostgreSQL, an object-relational database management system
+      (ORDBMS) with an emphasis on extensibility and on standards-compliance.
+    digest: eebe8f456cf98d5927a35666d1d899174dc4d3e09f26788033f761527bc90749
+    home: https://github.com/bitnami/charts/tree/master/bitnami/postgresql
+    icon: https://bitnami.com/assets/stacks/postgresql/img/postgresql-stack-110x117.png
+    keywords:
+    - postgresql
+    - postgres
+    - database
+    - sql
+    - replication
+    - cluster
+    maintainers:
+    - email: containers@bitnami.com
+      name: Bitnami
+    - email: cedric@desaintmartin.fr
+      name: desaintmartin
+    name: postgresql
+    sources:
+    - https://github.com/bitnami/bitnami-docker-postgresql
+    - https://www.postgresql.org/
+    urls:
+    - charts/postgresql-10.1.1.tgz
+    version: 10.1.1
+  vsc:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2020-09-30T08:04:43.6608395Z"
+    created: "2020-12-01T14:32:58.0801266Z"
     description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql)
       interface beschikbaar.&#039;'
-    digest: ba5ebcfd86f13150e7855ee6f7628535f7d073a5a000a49d25ae555e44b4949e
-    home: pc.zaakonline.nl
-    icon: pc.zaakonline.nl
-    name: pc
+    digest: bda2f602920d85d836b3226d3df5a20af3635da34a4ccda3e9668fe79189c06b
+    home: vsc.zuid-drecht.nl
+    icon: vsc.zuid-drecht.nl
+    name: vsc
     urls:
-    - pc-0.1.0.tgz
+    - vsc-0.1.0.tgz
     version: 0.1.0
-generated: "2020-09-30T08:04:43.6549126Z"
+generated: "2020-12-01T14:32:58.0611709Z"
