@@ -5,7 +5,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 11.10.0
-    created: "2020-12-01T14:20:13.7151465Z"
+    created: "2020-12-01T14:32:58.0967349Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -37,14 +37,14 @@ entries:
   vsc:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2020-12-01T14:20:13.703375Z"
+    created: "2020-12-01T14:32:58.0801266Z"
     description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql)
       interface beschikbaar.&#039;'
-    digest: abff1c4a201c7547db6d0ddb0f5dee0262c9e186c6ee26a0d265e3decbeabd18
+    digest: bda2f602920d85d836b3226d3df5a20af3635da34a4ccda3e9668fe79189c06b
     home: vsc.zuid-drecht.nl
     icon: vsc.zuid-drecht.nl
     name: vsc
     urls:
     - vsc-0.1.0.tgz
     version: 0.1.0
-generated: "2020-12-01T14:20:13.6867192Z"
+generated: "2020-12-01T14:32:58.0611709Z"

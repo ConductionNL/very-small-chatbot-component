@@ -7,7 +7,7 @@ use App\Service\MessageService;
 use App\Entity\Message;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +33,7 @@ class MessageSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function getResponce(GetResponseForControllerResultEvent $event)
+    public function getResponce(ViewEvent $event)
     {
 
         $message = $event->getControllerResult();
