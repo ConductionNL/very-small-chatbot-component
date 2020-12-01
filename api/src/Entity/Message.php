@@ -3,17 +3,11 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\MessageRepository;
-use DateTime;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * A message that as part of a converstation
+ * A message that as part of a converstation.
  *
  * @ApiResource(
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
@@ -32,7 +26,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          }
  *     }
  * )
- *
  */
 class Message
 {
@@ -111,6 +104,4 @@ class Message
 
         return $this;
     }
-
-
 }
