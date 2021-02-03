@@ -119,4 +119,4 @@ dependsOn:
 
 installations:
     - type: helm
-      url: "https://github.com/ConductionNL/very-small-chatbot-component/raw/master/api/helm/vsc-0.1.0.tgz"
+      url: "https://raw.githubusercontent.com/ConductionNL/very-small-chatbot-component/master/api/helm/"
