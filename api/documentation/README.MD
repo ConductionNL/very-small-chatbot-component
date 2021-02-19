@@ -1,4 +1,4 @@
-# vsc
+# very-small-chatbot-component
 
 Description
 ----
