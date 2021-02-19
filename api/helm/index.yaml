@@ -5,7 +5,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 11.10.0
-    created: "2021-02-19T02:59:55.7973553Z"
+    created: "2021-02-19T16:53:06.7468378Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -37,10 +37,10 @@ entries:
   very-small-chatbot-component:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2021-02-19T02:59:55.7856412Z"
+    created: "2021-02-19T16:53:06.7180915Z"
     description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
       beschikbaar.
-    digest: 5ee6f3b8cd9ae4057a400d047f959ce931164d304848b4ddc9d730c5643b910c
+    digest: 3b4747ecfd89ca3221eaea964207d2a037978d47ec53e8cf6c14de0364f81826
     home: https://www.conduction.nl
     icon: https://conductionnl.github.io/images/conduction_avatar_blue_on_transparant.svg
     keywords:
@@ -60,4 +60,4 @@ entries:
     urls:
     - very-small-chatbot-component-0.1.0.tgz
     version: 0.1.0
-generated: "2021-02-19T02:59:55.7743096Z"
+generated: "2021-02-19T16:53:06.705902Z"
