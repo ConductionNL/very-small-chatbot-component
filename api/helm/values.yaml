@@ -7,6 +7,7 @@ settings:
   projectName: very-small-chatbot-component
   name: very-small-chatbot-component
   version: V1.0
+  majorVersion: v1
   description: 'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'
   repro: https://github.com/ConductionNL/very-small-chatbot-component
   demo: vsc.zuid-drecht.nl
@@ -19,6 +20,7 @@ settings:
   debug: 1
   cache: false
   type: component
+  id: 
   replicaCount: 1
   corsAllowOrigin: ['*']
   trustedHosts: '^.+$'
@@ -49,6 +51,19 @@ php:
   env: prod
   secret: ""
   replicaCount: 2
+
+redis:
+  cluster:
+    enabled: false
+  enabled: false
+  redisPort: 6379
+  usePassword: false
+
+commonground:
+  eherkenning:
+    location: https://zuid-drecht.nl/eherkenning
+  digispoof:
+    location: https://zuid-drecht.nl/digispoof
 
 nginx:
   repository: docker.io/conduction/protocomponent-nginx
